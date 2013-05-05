@@ -13,7 +13,7 @@ end
 
 gem 'pg'
 
-gem 'unicorn'
+gem 'thin'
 
 
 # Gems used only for assets and not required
