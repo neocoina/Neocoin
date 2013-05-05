@@ -4,13 +4,22 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    #@items = Item.all
+    @items = nill
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @items }
+    end
+  end
+  
+  def home
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @items }
     end
   end
+  
   
   def group
     # group of items
