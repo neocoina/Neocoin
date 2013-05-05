@@ -342,3 +342,37 @@ ActiveRecord::ConnectionNotEstablished (ActiveRecord::ConnectionNotEstablished):
   Rendered /Users/kmcginty/.rbenv/versions/1.9.3-p286/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.1ms)
   Rendered /Users/kmcginty/.rbenv/versions/1.9.3-p286/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.9ms)
   Rendered /Users/kmcginty/.rbenv/versions/1.9.3-p286/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (8.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-05-05 12:55:23 -0400
+Connecting to database specified by database.yml
+Processing by ItemsController#home as HTML
+  Rendered items/home.erb within layouts/application (1.8ms)
+Compiled items.css  (36ms)  (pid 34394)
+Compiled scaffolds.css  (20ms)  (pid 34394)
+Compiled application.css  (110ms)  (pid 34394)
+Compiled jquery.js  (2ms)  (pid 34394)
+Compiled jquery_ujs.js  (0ms)  (pid 34394)
+Compiled items.js  (70ms)  (pid 34394)
+Compiled application.js  (175ms)  (pid 34394)
+Completed 200 OK in 460ms (Views: 459.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/items.css?body=1" for 127.0.0.1 at 2013-05-05 12:55:24 -0400
+Served asset /items.css - 200 OK (2ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-05-05 12:55:24 -0400
+Served asset /scaffolds.css - 200 OK (1ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-05-05 12:55:24 -0400
+Served asset /jquery.js - 200 OK (3ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-05-05 12:55:24 -0400
+Served asset /jquery_ujs.js - 200 OK (3ms)
+
+
+Started GET "/assets/items.js?body=1" for 127.0.0.1 at 2013-05-05 12:55:24 -0400
+Served asset /items.js - 200 OK (1ms)
