@@ -5,8 +5,9 @@ Neocoin::Application.routes.draw do
       post 'get'
     end
   end
+  match "/items/:id" => "items#home"
   match  "group" => "items#group"
-  root :to => "items#index"
+  root :to => "items#home"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
