@@ -1,5 +1,5 @@
 Neocoin::Application.routes.draw do
-  resources :items, :except => [:index, :delete] do
+  resources :items, :except => [:index, :delete, :edit] do
     member do
       get 'get'
       post 'get'
