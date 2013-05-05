@@ -54,84 +54,92 @@ class ItemsController < ApplicationController
         #puts response.body, response.code, response.message, response.headers.inspect
         if response.code == 200
           #puts 'Response Good!'
-          # Match for the NP
-  		  priceCheck = response.body.match(/<b>(.*?) NP<\/b>/)
-          if priceCheck
-            # Convert to int
-            price = priceCheck[1].gsub(/,/, '').to_i
-            if price != 0
-              puts "New price #{price}"
-              @item.price = price.to_i            
-              @item.update_attribute(:price, price.to_i)
-              @item.save
-            elsif price == 0
-              puts 'Item price is 0 on jelly meaning probably ^^ - unknown'
-              puts "New price #{price}"
-              floorTile = @item.name.match(/ Floor Tiles/)
-  			  wallPaint = @item.name.match(/ Wall Paint/)
-			  if floorTile || wallPaint
-				# Log
-				logger.info  'neohome item - exclude!'
-				price = -1
-			  else
-				# Log
-				logger.info  'Did not find home match'
-				price = 0              
-			  end
+          
+          # Check to see if the item was found
+  		    notFound = response.body.match(/any items for your search/)
+          
+          unless notFound?
+          
+            # Match for the NP
+    		    priceCheck = response.body.match(/<b>(.*?) NP<\/b>/)
+            if priceCheck
+              # Convert to int
+              price = priceCheck[1].gsub(/,/, '').to_i
+              if price != 0
+                puts "New price #{price}"
+                @item.price = price.to_i            
+                @item.update_attribute(:price, price.to_i)
+                @item.save
+              elsif price == 0
+                puts 'Item price is 0 on jelly meaning probably ^^ - unknown'
+                puts "New price #{price}"
+                floorTile = @item.name.match(/ Floor Tiles/)
+        			  wallPaint = @item.name.match(/ Wall Paint/)
+      			  
+                if floorTile || wallPaint
+        				# Log
+        				logger.info  'neohome item - exclude!'
+        				price = -1
+        			  else
+        				# Log
+        				logger.info  'Did not find home match'
+        				price = 0              
+        			  end
    
-              @item.price = price.to_i
-              @item.update_attribute(:price, price.to_i)
-              @item.save
-            else
-				logger.info 'Price was not found..'
+                @item.price = price.to_i
+                @item.update_attribute(:price, price.to_i)
+                @item.save
+              else
+  				    logger.info 'Price was not found..'
 					      		
-	      		floorTile = @item.name.match(/ Floor Tiles/)
-      			wallPaint = @item.name.match(/ Wall Paint/)
-				if floorTile || wallPaint
-					# Log
-	    			logger.info  'neohome item - exclude!'
-			        price = -1
-			    else
-					# Log
-	    			logger.info  'Did not find home match'
-			    	price = 0              
-				end
+  	      		floorTile = @item.name.match(/ Floor Tiles/)
+        			wallPaint = @item.name.match(/ Wall Paint/)
+    				
+              if floorTile || wallPaint
+      					# Log
+      	    			logger.info  'neohome item - exclude!'
+      			        price = -1
+      			    else
+      					# Log
+      	    			logger.info  'Did not find home match'
+      			    	price = 0              
+      				end
 					
-				#else
-				#	logger.info 'Response bad'
-		        #end
+      				#else
+      				#	logger.info 'Response bad'
+      		        #end
 	
-				logger.info "New price #{price}"  
-		        @item.price = price.to_i	            
-		        @item.update_attribute(:price, price.to_i)
-		        @item.save
-            end
-          else
-			logger.info 'Price was not found..'
+  				    logger.info "New price #{price}"  
+  		        @item.price = price.to_i	            
+  		        @item.update_attribute(:price, price.to_i)
+  		        @item.save
+              end
+            else
+  			      logger.info 'Price was not found..'
             
-            #logger.info  response.body
-      		floorTile = @item.name.match(/ Floor Tiles/)
-  			wallPaint = @item.name.match(/ Wall Paint/)
-			if floorTile || wallPaint
-				# Log
-				logger.info  'neohome item - exclude!'
-	        	price = -1
-		    else
-				# Log
-    			logger.info  'Did not find home match'
-		    	price = 0              
-			end
+              #logger.info  response.body
+        		  floorTile = @item.name.match(/ Floor Tiles/)
+    			    wallPaint = @item.name.match(/ Wall Paint/)
+        			if floorTile || wallPaint
+        				# Log
+        				logger.info  'neohome item - exclude!'
+        	        	price = -1
+        		    else
+        				# Log
+            			logger.info  'Did not find home match'
+        		    	price = 0              
+        			end
 			
-			#else
-			#	logger.info 'Response bad'
-	        #end
+        			#else
+        			#	logger.info 'Response bad'
+        	        #end
 
-			logger.info "New price #{price}"  
-	        @item.price = price.to_i	            
-	        @item.update_attribute(:price, price.to_i)
-	        @item.save
+    			    logger.info "New price #{price}"  
+    	        @item.price = price.to_i	            
+    	        @item.update_attribute(:price, price.to_i)
+    	        @item.save
+            end
           end
-        
         else
           puts "Response bad: #{response.code}"
         end
