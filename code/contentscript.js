@@ -1969,8 +1969,13 @@ document.addEventListener('DOMContentLoaded', function () {
     marketPathInit();
   }
   // Check if it is an item buy
-  else if ( location.pathname == '/haggle.phtml' ){
-    hagglePathInit();
+  else if ( location.pathname == '/haggle.phtml' ) {
+      
+      // Make sure auto is on before we do anything on a haggle page
+      if ( getStorage()['autoBool'] === true ) {
+          hagglePathInit();
+      }
+      
   }
   // Check if it is wishing tree
   else if ( location.pathname == '/donations.phtml' ){
@@ -1983,8 +1988,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   // Check if we got the donation or missed it
   else if ( location.pathname == '/takedonation_new.phtml' ){
-    console.log('donation');
-    takeDonationPathInit();
+      
+      // Make sure auto is on before we do anything on a haggle page
+      if ( getStorage()['autoBool'] === true ) {
+          takeDonationPathInit();
+      }
+      
   }
   
   //console.log(location.pathname);
