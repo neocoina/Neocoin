@@ -895,7 +895,7 @@ function checkWishingTree(){
   var urlSafe;
   var returnItems;
   // Loop each item and package it for AJAX price check
-  $('.contentModuleContent table:first td b').each(function(){
+  $('#mt-content table:first td .name').each(function(){
     $this = $(this);
     name = $this.text();
     
@@ -954,9 +954,9 @@ function getWishingTree(itemSet){
     
     // If item is unknown get it
     if ( itemSet[i].salePrice == 0 ) {
-      giftLink = $('.contentModuleContent table:first td:contains(' + itemSet[i].name + ') a').attr('href');
+      giftLink = $('#mt-content table:first td:contains(' + itemSet[i].name + ') a').attr('href');
       giftLink = 'http://www.neopets.com/' + giftLink;
-      console.log('Getting unknown item' + bestItem);
+      console.log('Getting unknown item' + itemSet[i].name);
       openWindow(giftLink);
     }
     // Check each best items
@@ -970,14 +970,14 @@ function getWishingTree(itemSet){
     
       // Show how amazing the profit is for each with same name
       if ( itemSet[i].salePrice >= storage['minProfitNoHaggle'] ) {
-        $('.contentModuleContent table:first td:contains(' + itemSet[i].name + ')').each(function(){
+        $('#mt-content table:first td:contains(' + itemSet[i].name + ')').each(function(){
           $(this).css('outline','2px solid #FFDF40');
         });
         
         // If over No haggle profit (2k) then just grab it
         console.log('Buying each ' + itemSet[i].name);
         // Try to get each one
-        $('.contentModuleContent table:first td:contains(' + itemSet[i].name + ')').each(function(){
+        $('#mt-content table:first td:contains(' + itemSet[i].name + ')').each(function(){
           $(this).children('a').each(function(){
             giftLink = $(this).attr('href');
             giftLink = 'http://www.neopets.com/' + giftLink ;
@@ -992,19 +992,20 @@ function getWishingTree(itemSet){
         // openWindow(giftLink);
       }
       else if ( itemSet[i].salePrice >= storage['minProfitHaggle'] ) {
-        $('.contentModuleContent table:first td:contains(' + itemSet[i].name + ')').each(function(){
+        $('#mt-content table:first td:contains(' + itemSet[i].name + ')').each(function(){
           $(this).css('outline','2px solid #FF8040');
         });        
       }
       else if ( itemSet[i].salePrice >= storage['minProfitHighlight'] ) {
-        $('.contentModuleContent table:first td:contains(' + itemSet[i].name + ')').each(function(){
+        $('#mt-content table:first td:contains(' + itemSet[i].name + ')').each(function(){
           $(this).css('outline','1px solid #BEBEBE');   
         });
       }
     
       // Add in the price to each item with same name
-      $('.contentModuleContent table:first td:contains(' + itemSet[i].name + ') b').each(function(){
+      $('#mt-content table:first td:contains(' + itemSet[i].name + ') .donationuser').each(function(){
         $(this).after('<div>Sells for:' + itemSet[i].salePrice + '</div>');
+        //console.log('sells 4');
       });
     // End Check best items item is not 0
     }
